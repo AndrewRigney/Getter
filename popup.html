@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="scripts/jquery-2.1.4.min.js"></script>
+    <script src="scripts/popup.min.js"></script>
+    <link href="styles/roboto.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/popup-light.min.css" rel="stylesheet" type="text/css" id="popupTheme" />
+    <!-- <link href="styles/fontawesome-5.6.3.min.css" rel="stylesheet" type="text/css" /> -->
+    <link href="https://kit-pro.fontawesome.com/releases/v5.10.1/css/pro.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="mainView">
+        <div id="buttons">
+            <button id="switchTheme"><i class="fas fa-toggle-off"></i></button>
+            <button id="selectButton"><i class="fas fa-plus"></i></button>
+            <button id="deselectButton"><i class="fas fa-minus"></i></button>
+            <input type="text" id="patternInput" value="*.jp*g"></input>
+            <button id="patternButton"><i class="fas fa-plus"></i></button>
+            <button id="startButton" disabled><i class="fas fa-chevron-right"></i>&nbsp;(<span
+                    id="startButtonCounter">0</span> file/s)</button>
+            <button id="closeButton"><i class="fas fa-times"></i></button>
+            <button id="reloadButton"><i class="fas fa-redo"></i></button>
+            <button id="quickstartButton"><i class="fas fa-chevron-circle-right"></i>&nbsp;Quickstart</button>
+            <div class="clear"></div>
+        </div>
+        <div id="listContainer">
+            <div id="tableHeader">
+                <div id="headerFilename">Filename</div>
+                <div id="headerDescription">Description</div>
+            </div>
+            <div id="listContent">
+                <table id="listTable">
+                    <tr>
+                        <td class="checkbox"></td>
+                        <td class="url">
+                            <span class="part3">Loading links. (Refresh page if it doesn't work)</span>
+                        </td>
+                        <td class="Description"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div id="downloadStats">
+        <div class="statsTab">Downloading: <span id="numDownloading" class="statsNumber">0</span></div>
+        <div class="statsTab">Queued: <span id="numQueued" class="statsNumber">0</span></div>
+        <div class="statsTab">Finished: <span id="numFinished" class="statsNumber">0</span></div>
+        <div id="clearDownloads"><i class="far fa-trash-alt"></i>&nbsp;Clear downloads</div>
+        <div class="clear"></div>
+    </div>
+</body>
+
+</html>
