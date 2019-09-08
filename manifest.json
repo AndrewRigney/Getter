@@ -3,7 +3,7 @@
     "manifest_version": 2,
     "name": "Getter",
     "version": "2.1.1",
-    "description": "Quickly download linked files from a website. Use wildcard pattern-matching to find and download files in bulk. Supports all file types.",
+    "description": "Download linked files from a website. Use wildcard pattern-matching to find and download files in bulk. Supports all file types.",
     "author": "Andrew Rigney",
     "icons": {
         "128": "artwork/icon_128x128.png",
