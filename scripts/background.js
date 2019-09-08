@@ -89,7 +89,7 @@ function processQueue() {
             console.error(err);
         }
 
-        var inFlight = queue.length; // + numDownloading;
+        var inFlight = queue.length;
         chrome.browserAction.setBadgeText({ text: inFlight.toString() });
         var badgeBgColour = inFlight > 0 ? "#FF0000" : "#717171";
         chrome.browserAction.setBadgeBackgroundColor({ color: badgeBgColour });
@@ -99,7 +99,6 @@ function processQueue() {
 }
 
 chrome.downloads.onChanged.addListener(function (downloadDelta) {
-    // console.log(downloadDelta);
     if (downloadIds.indexOf(downloadDelta.id) >= 0) {
         if (downloadDelta.state != undefined && downloadDelta.state.current != "in_progress") {
             downloadIds.splice(downloadIds.indexOf(downloadDelta.id), 1);

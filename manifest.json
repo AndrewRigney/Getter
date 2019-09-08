@@ -2,8 +2,8 @@
     "update_url": "https://clients2.google.com/service/update2/crx",
     "manifest_version": 2,
     "name": "Getter",
-    "version": "2.1.0",
-    "description": "Quickly download linked files from a website. Use wildcard pattern matching to find and download files in bulk. Supports all file types.",
+    "version": "2.1.1",
+    "description": "Quickly download linked files from a website. Use wildcard pattern-matching to find and download files in bulk. Supports all file types.",
     "author": "Andrew Rigney",
     "icons": {
         "128": "artwork/icon_128x128.png",
@@ -27,7 +27,7 @@
             "48": "artwork/icon_48x48.png",
             "16": "artwork/icon_16x16.png"
         },
-        "default_title": "Quickly download linked files from a website.",
+        "default_title": "Download linked files from a website.",
         "default_popup": "popup.html"
     },
     "background": {

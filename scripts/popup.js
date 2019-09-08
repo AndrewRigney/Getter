@@ -113,13 +113,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
                 if (match = val.url.match(/^(.*\/)?([^\/\?]+)(\?.*)$/)) {
                     row.find('td.url span.part2').text(match[2]);
                     row.find('td.url span.part3').text(match[3]);
-                }
-
-                else if (match = val.url.match(/^(.*\/)?([^\/\?]+)$/)) {
+                } else if (match = val.url.match(/^(.*\/)?([^\/\?]+)$/)) {
                     row.find('td.url span.part2').text(match[2]);
-                }
-
-                else {
+                } else {
                     row.find('td.url span.part1').text(val.url);
                 }
 
@@ -134,16 +130,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         $('#listTable input.checkbox').change(function () {
             if ($(this).is(':checked')) {
                 $(this).parent().parent().addClass('green');
-            }
-            else {
+            } else {
                 $(this).parent().parent().removeClass('green');
             }
+
             var numberOfFiles = $('#listTable input.checkbox:checked').length;
             $('#startButtonCounter').text(numberOfFiles);
             if (numberOfFiles > 0) {
                 $('#startButton').prop('disabled', false);
-            }
-            else {
+            } else {
                 $('#startButton').prop('disabled', true);
             }
         });
@@ -152,8 +147,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
             if (!shift) {
                 selectStart = $(this).index();
                 selectEnd = selectStart;
-            }
-            else {
+            } else {
                 selectEnd = $(this).index();
             }
             selecting = true;
@@ -173,7 +167,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         });
 
         drawSelection();
-
     }
 
 });
@@ -188,8 +181,7 @@ function drawSelection() {
     $('#listTable tr.link').each(function (i, el) {
         if (i >= Math.min(selectStart, selectEnd) && i <= Math.max(selectStart, selectEnd)) {
             $(el).addClass('selected');
-        }
-        else {
+        } else {
             $(el).removeClass('selected');
         }
     });
@@ -218,7 +210,6 @@ $(document).keypress(function (e) {
 
         // Don't scroll down. (Browser usually scrolls down when you press spacebar.)
         return false;
-
     }
 });
 
