@@ -1,4 +1,4 @@
-var MAX_CONCURRENT_DOWNLOADS = 5;
+var MAX_CONCURRENT_DOWNLOADS = 10;
 
 var numDownloading = 0;
 var numFinished = 0;
@@ -11,6 +11,7 @@ chrome.runtime.onMessage.addListener(
         if (request.message == "getStats") {
             sendStats();
         }
+
         if (request.message == "addToQueue") {
             queue = queue.concat(request.urls);
             try {
@@ -21,6 +22,7 @@ chrome.runtime.onMessage.addListener(
             }
 
         }
+
         if (request.message == "clearDownloads") {
             numDownloading = 0;
             numFinished = 0;
@@ -107,5 +109,6 @@ chrome.downloads.onChanged.addListener(function (downloadDelta) {
             processQueue();
         }
     }
+
     sendStats();
 });
