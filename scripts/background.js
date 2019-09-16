@@ -6,6 +6,20 @@ var downloadIds = [];
 var queue = [];
 var n = 1;
 
+var dev = {
+    default: "#3333cc",
+    active: "#3333cc",
+    complete: "#3333cc"
+};
+
+var prod = {
+    default: "#717171",
+    active: "#ff0000",
+    complete: "00cc00"
+};
+
+var currentConfig = dev;
+
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message == "getStats") {
@@ -35,7 +49,7 @@ chrome.runtime.onMessage.addListener(
 );
 
 chrome.browserAction.setBadgeText({ text: "0" });
-chrome.browserAction.setBadgeBackgroundColor({ color: "#717171" });
+chrome.browserAction.setBadgeBackgroundColor({ color: currentConfig.default });
 
 function sendStats() {
     chrome.runtime.sendMessage({ "message": "stats", "numDownloading": numDownloading, "numQueued": queue.length, "numFinished": numFinished });
@@ -55,13 +69,16 @@ function padNumber(n, l, p) {
 function timestamp() {
     var date = new Date();
 
-    return padNumber(date.getFullYear(), 4, "0") +
+    return (
+        padNumber(date.getFullYear(), 4, "0") +
         padNumber((date.getMonth() + 1), 2, "0") +
         padNumber(date.getDate(), 2, "0") +
         padNumber(date.getHours(), 2, "0") +
         padNumber(date.getMinutes(), 2, "0") +
-        padNumber(date.getSeconds(), 2, "0") +
-        padNumber(date.getMilliseconds(), 3, "0");
+        padNumber(date.getSeconds(), 2, "0")
+    );
+    //    padNumber(date.getMilliseconds(), 3, "0")
+    //);
 }
 
 function extension(filename) {
@@ -93,7 +110,7 @@ function processQueue() {
 
         var inFlight = queue.length;
         chrome.browserAction.setBadgeText({ text: inFlight.toString() });
-        var badgeBgColour = inFlight > 0 ? "#FF0000" : "#717171";
+        var badgeBgColour = inFlight > 0 ? currentConfig.active : currentConfig.complete;
         chrome.browserAction.setBadgeBackgroundColor({ color: badgeBgColour });
     }
 
