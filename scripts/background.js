@@ -7,15 +7,17 @@ var queue = [];
 var n = 1;
 
 var dev = {
-    default: "#3333cc",
-    active: "#3333cc",
-    complete: "#3333cc"
+    default: "#42b3f5",
+    active: "#42b3f5",
+    complete: "#42b3f5",
+    badgeAppendage: "D"
 };
 
 var prod = {
     default: "#717171",
     active: "#ff0000",
-    complete: "00cc00"
+    complete: "00cc00",
+    badgeAppendage: ""
 };
 
 var currentConfig = dev;
@@ -40,6 +42,7 @@ chrome.runtime.onMessage.addListener(
         if (request.message == "clearDownloads") {
             numDownloading = 0;
             numFinished = 0;
+            resetBadge();
             n = 0;
             downloadIds = [];
             queue = [];
@@ -48,8 +51,12 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-chrome.browserAction.setBadgeText({ text: "0" });
-chrome.browserAction.setBadgeBackgroundColor({ color: currentConfig.default });
+function resetBadge() {
+    chrome.browserAction.setBadgeText({ text: "0" + currentConfig.badgeAppendage });
+    chrome.browserAction.setBadgeBackgroundColor({ color: currentConfig.default });
+}
+
+resetBadge();
 
 function sendStats() {
     chrome.runtime.sendMessage({ "message": "stats", "numDownloading": numDownloading, "numQueued": queue.length, "numFinished": numFinished });
@@ -109,7 +116,7 @@ function processQueue() {
         }
 
         var inFlight = queue.length;
-        chrome.browserAction.setBadgeText({ text: inFlight.toString() });
+        chrome.browserAction.setBadgeText({ text: inFlight.toString() + currentConfig.badgeAppendage });
         var badgeBgColour = inFlight > 0 ? currentConfig.active : currentConfig.complete;
         chrome.browserAction.setBadgeBackgroundColor({ color: badgeBgColour });
     }
