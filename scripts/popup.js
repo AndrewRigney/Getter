@@ -6,21 +6,6 @@ $(document).ready(function () {
 
     chrome.runtime.sendMessage({ "message": "getStats" });
 
-    $('#switchTheme').click(function () {
-        var $elem = $("#switchTheme i");
-        if ($elem.hasClass("fa-toggle-off")) {
-            $elem.removeClass("fa-toggle-off");
-            $elem.addClass("fa-toggle-on");
-
-            $("#popupTheme").attr("href", "/styles/popup-dark.min.css");
-        } else {
-            $elem.removeClass("fa-toggle-on");
-            $elem.addClass("fa-toggle-off");
-
-            $("#popupTheme").attr("href", "/styles/popup-light.min.css");
-        }
-    });
-
     $('#selectButton').click(function () {
         $('#listTable tr.link.selected').find('input.checkbox').prop('checked', true).change();
     });

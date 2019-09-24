@@ -1,4 +1,4 @@
-var MAX_CONCURRENT_DOWNLOADS = 10;
+var MAX_CONCURRENT_DOWNLOADS = 5;
 
 var numDownloading = 0;
 var numFinished = 0;
