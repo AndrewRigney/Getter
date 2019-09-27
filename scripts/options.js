@@ -26,7 +26,7 @@ function save_options() {
     chrome.storage.sync.get(
       {
         pattern: "*.jp*g",
-        concurrent_downloads: 5
+        concurrent_downloads: 3
       },
       function(items) {
         document.getElementById("pattern").value = items.pattern;
