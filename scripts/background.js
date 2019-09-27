@@ -7,21 +7,22 @@ var queue = [];
 var n = 1;
 
 //CONFIG sets [DEV | PROD]
-var CONFIG_DEV = {
-    default: "#077dec",
-    active: "#077dec",
-    complete: "#077dec",
-    badgeAppendage: "d"
-};
+var CONFIG = {
+    DEV: {
+        default: "#077dec",
+        active: "#077dec",
+        complete: "#077dec",
+        badgeAppendage: "d"
+    },
+    PROD: {
+        default: "#717171",
+        active: "#ff0000",
+        complete: "#00cc00",
+        badgeAppendage: ""
+    }
+}
 
-var CONFIG_PROD = {
-    default: "#717171",
-    active: "#ff0000",
-    complete: "#00cc00",
-    badgeAppendage: ""
-};
-
-var currentConfig = CONFIG_DEV;
+var currentConfig = CONFIG.PROD;
 
 //load max concurrent downloads option
 chrome.storage.sync.get(
