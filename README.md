@@ -3,6 +3,12 @@ Chrome extension to download linked files in bulk. Use wildcards to select and d
 
 ## Changelog
 
+### Version 2.1.3
+ - User-configurable options implemented
+   - Users can set their 
+     - default wildcard pattern & 
+     - maximum concurrent downloads
+
 ### Version 2.1.2
  - Supports light and dark OS modes
 
