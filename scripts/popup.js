@@ -6,6 +6,16 @@ $(document).ready(function () {
 
     chrome.runtime.sendMessage({ "message": "getStats" });
 
+    //load wildcard pattern option and bind it to the popup UI
+    chrome.storage.sync.get(
+        {
+            pattern: ""
+        },
+        function (items) {
+            $("#patternInput").val(items.pattern);
+        }
+    );
+
     $('#selectButton').click(function () {
         $('#listTable tr.link.selected').find('input.checkbox').prop('checked', true).change();
     });
