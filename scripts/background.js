@@ -6,21 +6,32 @@ var downloadIds = [];
 var queue = [];
 var n = 1;
 
-var dev = {
-    default: "#42b3f5",
-    active: "#42b3f5",
-    complete: "#42b3f5",
-    badgeAppendage: "D"
+//CONFIG sets [DEV | PROD]
+var CONFIG_DEV = {
+    default: "#077dec",
+    active: "#077dec",
+    complete: "#077dec",
+    badgeAppendage: "d"
 };
 
-var prod = {
+var CONFIG_PROD = {
     default: "#717171",
     active: "#ff0000",
-    complete: "00cc00",
+    complete: "#00cc00",
     badgeAppendage: ""
 };
 
-var currentConfig = dev;
+var currentConfig = CONFIG_DEV;
+
+//load max concurrent downloads option
+chrome.storage.sync.get(
+    {
+        concurrent_downloads: 5
+    },
+    function (items) {
+        MAX_CONCURRENT_DOWNLOADS = items.concurrent_downloads;
+    }
+);
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
