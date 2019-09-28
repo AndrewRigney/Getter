@@ -9,7 +9,7 @@ $(document).ready(function () {
     //load wildcard pattern option and bind it to the popup UI
     chrome.storage.sync.get(
         {
-            pattern: ""
+            pattern: "*.jpg"
         },
         function (items) {
             $("#patternInput").val(items.pattern);

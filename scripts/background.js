@@ -12,7 +12,7 @@ var CONFIG = {
         default: "#077dec",
         active: "#077dec",
         complete: "#077dec",
-        badgeAppendage: "d"
+        badgeAppendage: "*"
     },
     PROD: {
         default: "#717171",
@@ -22,12 +22,12 @@ var CONFIG = {
     }
 }
 
-var currentConfig = CONFIG.PROD;
+var currentConfig = CONFIG.DEV;
 
 //load max concurrent downloads option
 chrome.storage.sync.get(
     {
-        concurrent_downloads: 5
+        concurrent_downloads: MAX_CONCURRENT_DOWNLOADS
     },
     function (items) {
         MAX_CONCURRENT_DOWNLOADS = items.concurrent_downloads;
