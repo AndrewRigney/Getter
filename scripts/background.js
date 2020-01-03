@@ -85,13 +85,22 @@ function padNumber(n, l, p) {
     return o;
 }
 
-function timestamp() {
-    var date = new Date();
+function datestamp(d) {
+    var date = d;
 
     return (
         padNumber(date.getFullYear(), 4, "0") +
         padNumber((date.getMonth() + 1), 2, "0") +
-        padNumber(date.getDate(), 2, "0") +
+        padNumber(date.getDate(), 2, "0")
+    );
+    //    padNumber(date.getMilliseconds(), 3, "0")
+    //);
+}
+
+function timestamp(d) {
+    var date = d;
+
+    return (
         padNumber(date.getHours(), 2, "0") +
         padNumber(date.getMinutes(), 2, "0") +
         padNumber(date.getSeconds(), 2, "0")
@@ -116,8 +125,9 @@ function processQueue() {
 
     while (queue.length > 0 && numDownloading < MAX_CONCURRENT_DOWNLOADS) {
         try {
+            var d = new Date();
             var url = queue.pop();
-            var filename = timestamp() + "-" + padNumber(n, 4, "0") + "." + extension(url);
+            var filename = datestamp(d) + "-" + timestamp(d) + "-" + padNumber(n, 4, "0") + "." + extension(url);
             numDownloading++;
             n++;
             chrome.downloads.download({ "url": url, "filename": filename }, function (downloadId) {
