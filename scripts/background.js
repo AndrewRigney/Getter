@@ -112,7 +112,7 @@ function timestamp(d) {
 function extension(filename) {
     try {
         var idx = filename.lastIndexOf('.');
-        return (idx < 1) ? "" : filename.substr(idx + 1);
+        return (idx < 1) ? "" : filename.substr(idx + 1, 3);
     } catch (err) {
         return "download";
     }
