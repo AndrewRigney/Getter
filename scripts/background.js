@@ -127,10 +127,11 @@ function processQueue() {
         try {
             var d = new Date();
             var url = queue.pop();
-            var filename = datestamp(d) + "-" + timestamp(d) + "-" + padNumber(n, 4, "0") + "." + extension(url);
+            var folderName = url.t;
+            var filename = folderName + "/" + datestamp(d) + "-" + timestamp(d) + "-" + padNumber(n, 4, "0") + "." + extension(url);
             numDownloading++;
             n++;
-            chrome.downloads.download({ "url": url, "filename": filename }, function (downloadId) {
+            chrome.downloads.download({ "url": url.u, "filename": filename }, function (downloadId) {
                 downloadIds.push(downloadId);
             });
         } catch (err) {

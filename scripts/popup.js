@@ -1,6 +1,8 @@
 $(document).ready(function () {
+    var activeTab;
+
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        var activeTab = tabs[0];
+        activeTab = tabs[0];
         chrome.tabs.sendMessage(activeTab.id, { "message": "getLinks" });
     });
 
@@ -27,7 +29,7 @@ $(document).ready(function () {
     $('#startButton').click(function () {
         var urls = [];
         $('#listTable input.checkbox:checked').parent().parent().find('td.url').each(function (i, el) {
-            urls.push($(el).attr('title'));
+            urls.push({ "u" : $(el).attr('title'), "t" : activeTab.title});
         });
         chrome.runtime.sendMessage({ "message": "addToQueue", "urls": urls });
     });
