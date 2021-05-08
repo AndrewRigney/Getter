@@ -127,8 +127,8 @@ function processQueue() {
         try {
             var d = new Date();
             var url = queue.pop();
-            var folderName = url.t;
-            var filename = folderName + "/" + datestamp(d) + "-" + timestamp(d) + "-" + padNumber(n, 4, "0") + "." + extension(url.u);
+            var folderName = "_getter" + "/" + datestamp(d) + "/" + url.t;
+            var filename = folderName + "/" + padNumber(n, 4, "0") + "." + extension(url.u);
             numDownloading++;
             n++;
             chrome.downloads.download({ "url": url.u, "filename": filename }, function (downloadId) {
