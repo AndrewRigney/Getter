@@ -1,5 +1,6 @@
 var MAX_CONCURRENT_DOWNLOADS = 5;
 
+var folderName = "";
 var numDownloading = 0;
 var numFinished = 0;
 var downloadIds = [];
@@ -42,13 +43,7 @@ chrome.runtime.onMessage.addListener(
 
         if (request.message == "addToQueue") {
             queue = queue.concat(request.urls);
-            try {
-                processQueue();
-            }
-            catch (err) {
-                console.error(err);
-            }
-
+            processQueue();
         }
 
         if (request.message == "clearDownloads") {
@@ -93,29 +88,14 @@ function datestamp(d) {
         padNumber((date.getMonth() + 1), 2, "0") +
         padNumber(date.getDate(), 2, "0")
     );
-    //    padNumber(date.getMilliseconds(), 3, "0")
-    //);
 }
 
-function timestamp(d) {
-    var date = d;
+chrome.downloads.onDeterminingFilename.addListener(function(item, suggest) {
+    suggest({filename: folderName + "/" + item.filename});
+});
 
-    return (
-        padNumber(date.getHours(), 2, "0") +
-        padNumber(date.getMinutes(), 2, "0") +
-        padNumber(date.getSeconds(), 2, "0")
-    );
-    //    padNumber(date.getMilliseconds(), 3, "0")
-    //);
-}
-
-function extension(filename) {
-    try {
-        var idx = filename.lastIndexOf('.');
-        return (idx < 1) ? "" : filename.substr(idx + 1, 3);
-    } catch (err) {
-        return "download";
-    }
+function cleanFolderName(f) {
+    return f.replace(/\W/g, "-");
 }
 
 function processQueue() {
@@ -124,19 +104,15 @@ function processQueue() {
     }
 
     while (queue.length > 0 && numDownloading < MAX_CONCURRENT_DOWNLOADS) {
-        try {
-            var d = new Date();
-            var url = queue.pop();
-            var folderName = "_getter" + "/" + datestamp(d) + "/" + url.t;
-            var filename = folderName + "/" + padNumber(n, 4, "0") + "." + extension(url.u);
-            numDownloading++;
-            n++;
-            chrome.downloads.download({ "url": url.u, "filename": filename }, function (downloadId) {
+        var d = new Date();
+        var url = queue.pop();
+        folderName = "_getter" + "/" + datestamp(d) + "/" + cleanFolderName(url.t);
+        numDownloading++;
+        n++;
+        
+        chrome.downloads.download({ "url": url.u }, function (downloadId) {
                 downloadIds.push(downloadId);
             });
-        } catch (err) {
-            console.error(err);
-        }
 
         var inFlight = queue.length;
         chrome.browserAction.setBadgeText({ text: inFlight.toString() + currentConfig.badgeAppendage });
